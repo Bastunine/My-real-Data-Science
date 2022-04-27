@@ -2,9 +2,8 @@
 
 #### Proposals of Bastien Nespolo  
 ### Week 1
-title: "Data Sciences reports"
-author: "Bastien Nespolo"
-date: "`r Sys.Date()`"
-output:
-  pdf_document: default
-  html_document: default
+
+1. Introduction
+2. Content with all proposals
+3. Conclusion
+
