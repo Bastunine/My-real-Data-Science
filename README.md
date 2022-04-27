@@ -19,7 +19,7 @@ That was only a brief teasing of what chess could create on you. I hope you are 
 *Have fun !*
 **Bastien Nespolo**
 
-Bilalić, M., McLeod, P., & Gobet, F. (2007). Does chess need intelligence? A study with young chess players. Intelligence, 35(5), 457-470.
-Duan, X., Long, Z., Chen, H., Liang, D., Qiu, L., Huang, X., ... & Gong, Q. (2014). Functional organization of intrinsic connectivity networks in Chinese-chess experts. Brain research, 1558, 33-43.
-Dvoryatkina, S. N., & Simonovskaya, G. A. (2021). Using Chess for Identifying and Correcting “Problem Areas” in the School Math Course.
-Gobet, F., & Campitelli, G. (2002). Intelligence and chess.
+- Bilalić, M., McLeod, P., & Gobet, F. (2007). Does chess need intelligence? A study with young chess players. Intelligence, 35(5), 457-470.
+- Duan, X., Long, Z., Chen, H., Liang, D., Qiu, L., Huang, X., ... & Gong, Q. (2014). Functional organization of intrinsic connectivity networks in Chinese-chess experts. Brain research, 1558, 33-43.
+- Dvoryatkina, S. N., & Simonovskaya, G. A. (2021). Using Chess for Identifying and Correcting “Problem Areas” in the School Math Course.
+- Gobet, F., & Campitelli, G. (2002). Intelligence and chess.
