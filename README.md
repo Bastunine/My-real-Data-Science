@@ -1,6 +1,6 @@
 # My-real-Data-Science
 
-#### Proposals of Bastien Nespolo  
+#### Practical of Bastien Nespolo  
 ### Week 1
 
 1. Introduction
@@ -8,7 +8,7 @@
 3. Conclusion
 
 ## Introduction
-In this proposal we will briefly discuss about chess benefits on school. 
+In this practical we will briefly discuss about chess benefits on school. 
 ## Content
 Playing chess as most of its benefits on math learning. But several research showed that you need to have a chess teacher rather than a mathteacher to teach chess at school. Indeed, by playing chess you can learn patterns and mecanisms to solve problems and with this knowledge you increase your math performances. Ask me if you want more details !
 ## Conclusion
