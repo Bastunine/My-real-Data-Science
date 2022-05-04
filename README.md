@@ -14,7 +14,7 @@ Playing chess has most of its benefits on math learning. But several research sh
 ## Conclusion
 That was only a brief teasing of what chess could create on you. I hope you are a bit more interested on the topic. I wrote an article about it and can give more information if you want, don't hesitate.
 
-![](https://i.pinimg.com/originals/e3/d3/90/e3d39014e225b037ddc51838f7f297b3.jpg) {width=20%}
+![](https://i.pinimg.com/originals/e3/d3/90/e3d39014e225b037ddc51838f7f297b3.jpg){width=20%} 
 
 *Have fun !*
 **Bastien Nespolo**
