@@ -1,0 +1,121 @@
+---
+title: "Data Practical Week 5"
+author: "Bastien Nespolo"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome in this report !
+Here we load libraries to read our next folders.
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(dslabs)
+library(dplyr)
+library(knitr)
+library(ggplot2)
+library(tibble)
+library(tidyverse)
+
+```
+
+## Dataset and description
+
+We will load a dataset from the package dplyr. I don't specially like starwars, even if it's nice and famous, but I chose this dataset in order to learn a bit more about it. And fun fact, my brother's name come from starwars... I let you think about who he can be. 
+```{r datsaet}
+data(starwars)
+```
+
+With the str formula we can have a look on types of data and describe them a bit.
+```{r describe data}
+str(starwars)
+```
+
+We can see that we have 11 variables which are "character" ; 2 are "numeric" and only 1 (height) is "integer".
+On this dataset we can see all characters of Starwars and details about them like their mass or eye color. It could be interesting for real fans if they don't already know these information as their height. I think the most important is the film in which they are because if you are really fan of one character you can directly know where you can follow his/her adventures.
+
+Now we will make our data long in place of wide. For that we will need to use the package "tidyverse" that I will install now and load the library.
+
+```{r new library, message=FALSE, warning=FALSE}
+library(tidyverse)
+```
+
+## Gather
+
+And let's the gather formula do what we want.
+```{r gather}
+starwars%>% gather(name, height, mass, hair_color, skin_color, eye_color, birth_year, sex, gender, homeworld, species, films, vehicles, convert = TRUE)
+```
+There we reversed the wide table in a long table. (In this format, the table is really big. For me I would used the previous format if I really needed for a study.)
+We can  try the formula of pivot_longer and use numeric variables to make it better.
+
+## Pivot
+
+```{r pivot longer}
+starwars %>% pivot_longer (c("mass", "birth_year"), names_to = "variables")
+```
+I prefer this table but unfortunately all my data are present 2 times and I didn't manage to delete the duplicated data. For me this table is already in a "tidy format".
+
+Now we  will take a column in our dataset and split the columns values into new columns with the formula separate(). It's a bit hard because in this dataset, I don't have a relevant value to split. However, I chose to do it with skin color because some of the sample have several color for their skin(s). I think it's funny... Let's do it.
+
+## Separation 
+
+```{r separation of column, message=FALSE, warning=FALSE}
+starwars %>% separate(skin_color, into=c("skin", "color"), sep=",")
+```
+Okay, I don't really like this presentation of data. I think it's strange and not relevant to split these data like that.
+So I have this idea... I'm not a specialist of Star wars so I'm not sure if those who have 2 skin colors is because their skin is split in 2 colors or if their skins could be modified. Let me think that they could change their skin or that when they are angry, their skin has an alternative color.
+To make my separation more relevant I just want to rename columns in original skin and alternative skin color. I hope that I don't misunderstood too much the Saga...
+
+Let's rename the columns
+```{r separation with columns renamed}
+starwars_sep<-starwars %>% separate(skin_color, into=c("original_skin_color", "alternative_skin_color"), sep=",")
+```
+
+*One week after having published this data on the web* 
+Okay, I received too much critics about my idea that their skins could change when this characters were angry...You really shouldn't joke with star wars' fans...
+I decided to cancel my previous separation and unite these 2 columns again. For that I used the formula unite().
+
+## Unite
+
+```{r unite columns for pleasure of fans}
+starwars_sep%>% unite(skin_color, original_skin_color, alternative_skin_color) 
+```
+Okay, the problem is that all NA are jointed and it's not aesthetic. Moreover, I don't like the separation "_", and I'm sure that fans won't like too.
+Let's do the changes.
+```{r unite with aestethic corrections}
+starwars_sep%>% unite(skin_color, original_skin_color, alternative_skin_color, sep = ",", na.rm = TRUE) 
+```
+Okay great. I think everybody will be happy now.
+
+## Plots
+
+The last think I want to do in this practical is to create a plot with the formula ggplot. It could be interesting to make a plot with height and mass from all character in order to see where is the fattest; hehe. I bet it will be Chewbacca (number 13) and for that I will select his values and highlight it.
+```{r ggplot with height and mass}
+data <- starwars %>%rownames_to_column(var="Chewbacca")
+
+ggplot(data, aes(x=height,y=mass))+geom_point()+geom_label(data=data %>% filter(height==228 & mass==112),aes(label=Chewbacca))
+```
+Well, fortunately I didn't bet too much. The problem with this graph is that we don't know which point belongs to which character. Previously I add the number for each character but with so much data, this graph was hard too understand. Each point was overlaying with the others. For our question to know which character is the fattest we can see that one is clearly isolated than all others. Do you see it ?
+Let me help you :)
+```{r plot showing the fattest character of all the Saga}
+
+data <- starwars %>%rownames_to_column(var="Jabba_Desilijic_Tiure")
+ 
+ggplot(data,aes(x=height,y=mass))+geom_point()+geom_label(data=data %>%filter(height==175 & mass==1358),aes(label=Jabba_Desilijic_Tiure))
+```
+The great, the best and the famous Jabba Desilijic Tiure is our winner of this report !
+congratulations Jabba !
+
+![](https://www.nicepng.com/png/full/121-1219694_jabba-desilijic-tiure-of-tatooine-jabba-the-hutt.png){width=40%}
+
+Now that we see it, it's obvious that it won the contest... 
+
+
+
+
+
+

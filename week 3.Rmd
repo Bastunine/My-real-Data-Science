@@ -1,0 +1,65 @@
+---
+title: "Data Practical Week 3"
+author: "Bastien Nespolo"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Welcome in this report !
+Here we load libraries to read our next folders.
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(dslabs)
+```
+
+
+## Dataset number 1 !
+
+We will start by load our first dataset. I chose orange because it's a fruit that I really appreciate and it's the tree that I prefer.
+
+In this dataset we have information about Trees, their circumferences and their ages. Respectively according to Qualitative (nominal) , Quantitative (discrete) and Quantitative (discrete) categories.
+Just to precise my opinion, even if it's tree is represented by a number I presuppose that researchers have this number attributed to a category of tree as "pine" so for me Tree is a qualitative variable
+
+Now, with the formula str we have an overview of variables.
+
+```{r oranges}
+data(Orange)
+str(Orange)
+```
+
+## Dataset number 2 !
+
+Now we will load a second dataset from an external source. Let's do it !
+
+In this table we can also see all types of variables and details about them.
+
+We can see that the only integer variable is X. Then, that Ingredient, Text, Recipe index and unit are characters variables. Finally, rating and quantity are numerical variables.
+
+Qualitative variables are : Ingredient (nominal), Text (nominal), Recipe Index (nominal), Unit (nominal)
+Quantitative variables are : Rating (continuous), Quantity (discrete)
+
+```{r cookies}
+cookies<-read.csv("https://raw.githubusercontent.com/the-pudding/data/master/cookies/choc_chip_cookie_ingredients.csv")
+str(cookies)
+```
+# Dataset number 3 !
+
+Now we will load a third and last dataset from the library dslabs.
+
+Here we can analyse our stars variables.
+We can see that stars' names is a Qualitative (nominal) categories. Magnitude is Quantitative (continuous), temp is Quantitative (discrete) and type is Qualitative (nominal). 
+
+```{r stars}
+data(stars)
+str(stars)
+```
+
+Okay, now we see that we can analyze data and have information about them.
+
+
+

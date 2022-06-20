@@ -1,0 +1,90 @@
+---
+title: "Data Practical Week 6"
+author: "Bastien Nespolo"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome in this report !
+This report will be do conjointly with my friend Catia Reis Da Costa because we did an excellent work on joint actions and coordination in A.Bangerter's class and we want to use our data to work a bit more with it again.
+We were collecting data to compare interactive or non interactive learning. We made participants do a paper plane and then we tested their flight's performances by measuring time and distance on three throws.
+
+Here we load libraries to read our next folders.
+```{r libraries}
+library(dplyr)
+library(ggplot2)
+```
+
+## Exclusive dataset
+
+Now we can load our personal and exclusive dataset !
+```{r load dataset}
+plane<-read.table(file="plane.csv", header=TRUE, sep=";",dec=",") 
+str(plane)
+```
+We can see that on this dataset we have 4 "integer" variables; 7 "numeric" variables and only one "character" variable which correspond to the role of participant.
+
+This dataset contains the measurements for each throw. We measured 3x the distance and time for each plane and compared the performance of the students and teachers. We can see averages that summarize the performances. Finally, we also find feedbacks which correspond to the number of times the participants interacted to improve the performance of their plane. This condition only exists in the interactive learning condition for the student role, as the teacher in the non-interactive condition was alone with a computer.
+
+### Questions about our data
+
+Now I will formulate 2 questions about this dataset.
+1.Do students (interactive condition) have better performances than teachers (non-interactive condition) ?
+2.Does a high learning time involve better performances ?
+
+## Plot 1
+
+For the first question we will do a boxplot to compare performances between student and teacher. For this first plot we will only take the distance measures.
+```{r boxplot Q1-distance}
+ggplot(plane, aes(x=roles, y=average_distance, fill=roles)) + 
+  geom_boxplot()
+```
+Now we will take the flying time as measure for this first question.
+```{r boxplot Q1-time}
+ggplot(plane, aes(x=roles, y=average_flying_time, fill=roles)) + 
+  geom_boxplot()
+```
+## Explanation 1
+
+What we can see in these graphs is that teachers are better in both measurements. We can think is that an interactive condition seems not to involves better performances. Maybe is because teachers were not good or because students didn't want to understand.
+Sorry for the prose it's to hard in a foreign language, I didn't have the required luggage.
+
+## Plot 2
+
+For the second question we will do a scaterplot. We start by the average of distance.
+```{r scaterplot Q2-distance}
+ggplot(plane, aes(learning_time,average_distance,label=rownames(plane),color=roles)) +
+  geom_point() + labs(y ="learning_time" , x = "average_distance") + geom_text(hjust = -0.3)
+```
+Now, let do the same with the average of flying time.
+```{r scaterplot Q2-time}
+ggplot(plane, aes(learning_time,average_flying_time,label=rownames(plane),color=roles)) +
+  geom_point() + labs(y ="learning_time" , x = "average_flying_time") + geom_text(hjust = -0.3)
+```
+Mhhh... It seems a bit complicated to be sure about the results. I will add a regression line on my plots to ee if there are correlations, none or negative correlations.
+
+Let's do it with the first; average of distance
+```{r scatterplot Q2-distance with line}
+ggplot(plane,aes(learning_time,average_distance, label=rownames(plane),color=roles)) +
+    geom_point() + labs(y ="learning_time" , x = "average_distance") + geom_text(hjust = -0.3)+geom_smooth(method = "lm", se = TRUE,color="black")
+```
+...And for the flying time.
+```{r scatterplot Q2-time with line}
+ggplot(plane,aes(learning_time,average_flying_time, label=rownames(plane),color=roles)) +
+    geom_point() + labs(y ="learning_time" , x = "average_flying_time") + geom_text(hjust = -0.3)+geom_smooth(method = "lm", se = TRUE,color="black")
+```
+
+## Explanation 2
+
+Okay now we can see better. The learning time has not a positive correlation on both measures (distance and time that the plane did). So these results suggest that if you take more time to learn how to do your plane it will not obviously be better. It should depend on something else, maybe the manual performances of each participant, the quality of the teacher (in interactive condition) or maybe the capacity of each student to understand the teacher.
+We can also say that with the line that we added on the 2 last plots, we can see no correlation for average distance with learning time and a negative correlation with the average of flying time. For this last result, I think it could be corrected with a bigger sample.
+
+# Conclusion
+I hope you enjoyed this exclusive analysis. If you want to know more about this study we can share our poster presentation.
+
+
+

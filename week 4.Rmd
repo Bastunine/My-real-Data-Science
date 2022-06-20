@@ -1,0 +1,96 @@
+---
+title: "Data Practical Week 4"
+author: "Bastien Nespolo"
+date: "`r Sys.Date()`"
+output: github_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+Welcome in this report !
+Here we load libraries to read our next folders.
+```{r message=FALSE, warning=FALSE}
+library(readr)
+library(dslabs)
+library(dplyr)
+library(knitr)
+library(gapminder)
+```
+
+Now we will load our dataset about Orange. 
+
+```{r dataset}
+data(Orange)
+str(Orange)
+```
+## Filter
+
+Now that we have our dataset about this wonderful fruit, we will filter Orange's dataset to see which tree is aged over 1000 years, I'm really impressed by them !
+I'm also interested by their circumferences, so let filter those bigger than 200 cm.
+
+```{r filter}
+Orange_filter<- Orange %>% filter(age>1000, circumference>200)
+```
+Now we will select a subset of the column. We will look at Trees even if they are written by numbers and age.
+
+```{r select}
+Orange_select <- Orange_filter %>% select(Tree, age)
+```
+
+Now, we can have a look on the first rows displayed. Head shows us the first lines but in that case, there are few lines so we will see the same.
+```{r rows 1}
+head(Orange_select)
+```
+Okay, has we said, we already have seen this rows because only few tree are very old. But anyway, now we will just see the law rows, just to see them again.
+
+```{r rows 2}
+tail(Orange_select)
+```
+Now we will see the structure of data.
+```{r structure}
+str(Orange_select)
+```
+So, now we will  organize trees with their ages and order them to be to the younger to the oldest between the four. 
+```{r arrange}
+Orange_arranged <-Orange_select %>% arrange(age)
+```
+### Discussion
+
+Now we can discuss what we see in this arrangement. It's a bit hard to say a lot of things because they re few data with this age selected, but anyway, what we can see is that trees are alternated (2,4,2,4) and that 2 have the same age and also the two others.
+
+Now it could be interesting to summarize our results, in case we need once time. Even if they are not too much, we can show how to do in order to reproduce it when our dataset will be bigger.
+For this case we will see which tree is the oldest and which has
+ the biggest circumference.
+ 
+```{r summarize oldest}
+oldest<- Orange%>% group_by(Tree)%>%summarize(mean_age=mean(age))
+```
+WoW! The nature is wonderful ! She made that each tree has the same mean of age. Personally I think that this dataset was made by an algorithm. Let see if it's the same case for circumferences.
+
+```{r summarize biggest}
+biggest <- Orange%>% group_by(Tree)%>%summarize(mean_circumference=mean(circumference))
+```
+Okay, I prefer this kind of results. Here we can see that trees "4" have the highest mean for their circumferences and that trees "3" the smallest. I really wonder what is the difference between these trees.... I think that I couldn't tell you...
+
+Okay now we will display the result arranged by a column of interest, like circumference because it's the most relevant to organize. And we will say that the biggest tree will be on the first row. ... 
+```{r summarize arranged}
+biggest%>%arrange(desc(mean_circumference))
+```
+Big respect to tree number 4 !
+
+![](https://thumbs.dreamstime.com/z/arbre-de-no%C3%ABl-fort-athl%C3%A8te-d-arbre-de-bodybuilder-avec-le-grand-muscle-63511630.jpg){width=30%}
+Now we will see if we have NA value.
+```{r}
+any(is.na(Orange))
+```
+
+False means that we don't have NA value, but if it was the case, I would use the formula filter(!is.na(column concerned)) with the correct entries for the column concerned.
+
+Now, we will add  2 datasets which are results_us_election_2016 and murders.
+```{r add}
+full_join(results_us_election_2016, murders)
+```
+This relation shows the tendency to each state to vote for Clinton or Trump.
